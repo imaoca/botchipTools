@@ -2,7 +2,7 @@
 
 # Overview
 Introduces a method of embedding information in the padding part of ARP and performing secret communication with only one small 8-bit microcomputer. The transmitter uses an 8-bit microcomputer called Atmega328P. A 10BASE-T Ethernet frame is generated using only the GPIO of the microcomputer without using a dedicated chip such as an Ethernet controller. By using this method, it is possible to perform a covert channel attack with a smaller and cheaper method than the conventional method.
-Since this attack can be performed with a single inexpensive and small microcomputer, it can be hidden and operated inside devices that can be connected to various networks. 
+Since this attack can be performed with a single inexpensive and small microcomputer, it can be hidden and operated inside devices that can be connected to various networks. 
 
 # Keywords
 - ARP & ARP padding
@@ -25,16 +25,12 @@ Introduces a method of embedding information in the padding part of A
 
 Should be change EtherType to 0806 for ARP packet
 
-# ARP Packet format
-
-![](img/arppacket.png)
-
 # ARP Packet format example
 
 ~~~
 ffffffff ffffAA01 23456789 0806			<- Ethernet Header
-00010800 06040001 00012345 6789c0a8 	<- ARP Packet
-0a010000 00000000 c0a80a02
+00010800 06040001 00012345 6789c0a8 	<-+ ARP Packet
+0a010000 00000000 c0a80a02              <-+
 00000000 00000000 00000000 00000000 	<- Padding
 0000
 ~~~
@@ -88,7 +84,7 @@ In the case of 10Base-T, even if the transfer rate is 10 Mbps, Manchester encodi
 
 https://www.youtube.com/watch?v=8uvN4Xv7P_U
 
-# workshop
+# Demo
 From here, I will explain how to send ARP only with Atmega328 using some tools. 
 The operating environment is Windows.
 
@@ -136,16 +132,16 @@ you have to add following text to the board.txt
 ~~~
 ###################################################
 botchip.name=botchip
-botchip.upload.tool=avrdude
+botchip.upload.tool=avrdude
 botchip.upload.protocol=arduino
-botchip.bootloader.tool=avrdude
+botchip.bootloader.tool=avrdude
 nano.bootloader.unlock_bits=0x3F
 nano.bootloader.lock_bits=0x0F
-botchip.build.f_cpu=16000000L
+botchip.build.f_cpu=16000000L
 botchip.build.board=AVR_NANO
 botchip.build.core=arduino
 botchip.build.variant=eightanaloginputs
-botchip.menu.cpu.atmega328old=botchip (Old Bootloader 20MHz)
+botchip.menu.cpu.atmega328old=botchip (Old Bootloader 20MHz)
 botchip.menu.cpu.atmega328old.upload.maximum_size=30720
 botchip.menu.cpu.atmega328old.upload.maximum_data_size=2048
 botchip.menu.cpu.atmega328old.upload.speed=72000
@@ -153,7 +149,7 @@ botchip.menu.cpu.atmega328old.bootloader.low_fuses=0xFF
 botchip.menu.cpu.atmega328old.bootloader.high_fuses=0xDA
 botchip.menu.cpu.atmega328old.bootloader.extended_fuses=0xFD
 botchip.menu.cpu.atmega328old.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
-botchip.menu.cpu.atmega328old.build.mcu=atmega328p
+botchip.menu.cpu.atmega328old.build.mcu=atmega328p
 ~~~
 
 # packet2ino
@@ -173,5 +169,3 @@ C:\Users\imaoca09\OneDrive\source\packet2asm\packet2ino\Debug>little < dash.frm 
 ![](img/wireshark.png)
 
 # Enjoy “ARP covert channel attacks by 8bit Microcomputer” by your hands. 
-
-# Thank you.
