@@ -4,6 +4,10 @@
 Introduces a method of embedding information in the padding part of ARP and performing secret communication with only one small 8-bit microcomputer. The transmitter uses an 8-bit microcomputer called Atmega328P. A 10BASE-T Ethernet frame is generated using only the GPIO of the microcomputer without using a dedicated chip such as an Ethernet controller. By using this method, it is possible to perform a covert channel attack with a smaller and cheaper method than the conventional method.
 Since this attack can be performed with a single inexpensive and small microcomputer, it can be hidden and operated inside devices that can be connected to various networks. 
 
+# Update
+When we presented it at Blackhat2020USA last year, we needed to edit the binary file directly, but now we can run the created program on a microcontroller only with ArdinoIDE.
+In addition, it is now possible to use commercially available microcomputer boards without modification, whereas before it was necessary to replace the crystal of the board.
+
 # Keywords
 - ARP & ARP padding
 - Ethernet
